@@ -1,0 +1,82 @@
+/* main.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+article {
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #333;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* 추가: 아래로 일정한 간격 확보 */
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    /*background-color: #007bff;
+    color: #fff;*/
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* content-text 클래스 스타일 */
+.content-text {
+    white-space: nowrap; /* 개행 방지 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 넘치는 텍스트 생략 부호 표시 */
+    padding: 5px;
+    flex: 1; /* input 박스와 동일한 길이 설정 */
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px; /* 추가: 체크박스 넓이 조정 */
+    height: 20px; /* 추가: 체크박스 높이 조정 */
+}
+
+article input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px; /* 추가: input과 체크박스 간격 확보 */
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}

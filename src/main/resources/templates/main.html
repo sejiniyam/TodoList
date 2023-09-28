@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TodoList</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="icon" type="image/x-icon" href="../static/images/calendar.svg">
+</head>
+<body>
+    <section>
+        <article th:class="first">
+        <h3>ToDoList</h3>
+        <h4 th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h4>
+        <form name="addForm" th:action="@{/todolist}" method="post">
+            <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
+            <button type="submit"><img th:src="@{/images/plus.svg}" alt="추가 버튼"></button><br>
+        </form>
+        </article>
+        <article th:class="second" th:each="item : ${todolist}">
+        <form name="deleteForm" th:action="@{/todolist/{id}(id=${item.idx})}" method="post">
+            <input type="checkbox" name="idx" th:value="${item.idx}">
+            <span class="content-text" th:text="${item.content}"></span>
+            <button type="submit"><img th:src="@{/images/trash.svg}" alt="삭제 아이콘"></button><br>
+        </form>
+        </article>
+    </section>
+</body>
+</html>
