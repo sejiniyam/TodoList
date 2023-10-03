@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class TodolistService {
@@ -37,4 +37,13 @@ public class TodolistService {
         todolistRepository.deleteById(idx);
     }
 
+    // 할 일 완료 여부 (체크 시 완료 줄, 완료 상태로 변경)
+    public void updateTodoStatus(int idx, Boolean checked) {
+        Optional<Todolist> todo = todolistRepository.findById(idx);
+        if(todo.isPresent()){
+            Todolist todolist = todo.get();
+            todolist.setChecked(checked);
+            todolistRepository.save(todolist);
+        }
+    }
 }

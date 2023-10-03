@@ -43,4 +43,11 @@ public class TodolistController {
         todolistService.deleteList(idx);
         return "redirect:/todolist";
     }
+
+    // 할 일 완료 여부 (체크 시 완료 줄, 완료 상태로 변경)
+    @PostMapping("/{idx}/{checked}")
+    public String updateTodoStatus(@PathVariable int idx, @PathVariable Boolean checked) {
+        todolistService.updateTodoStatus(idx, checked);
+        return "redirect:/todolist";
+    }
 }

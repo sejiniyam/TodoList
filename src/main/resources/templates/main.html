@@ -6,6 +6,53 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
     <link rel="icon" type="image/x-icon" href="../static/images/calendar.svg">
 </head>
+<script>
+    // 새로고침 시 모든 체크박스 상태 업데이트
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            updateCheckboxStyle(checkbox);
+        });
+    });
+
+    function updateCheckboxStyle(checkbox) {
+        const span = checkbox.nextElementSibling;
+        if (checkbox.checked) {
+            span.style.textDecoration = "line-through";
+        } else {
+            span.style.textDecoration = "none";
+        }
+    }
+
+    function selectCheckbox(checkbox) {
+        // 선택한 체크박스 취소선 그리기
+        const span = checkbox.nextElementSibling;
+        if (checkbox.checked) {
+            span.style.textDecoration = "line-through";
+        } else {
+            span.style.textDecoration = "none";
+        }
+
+        // 상태 여부 변환 시키기
+        const idx = checkbox.value;
+        const checked = checkbox.checked;
+
+        console.log(idx, checked);
+
+        // 서버로 업데이트 요청 보냄
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", `/todolist/${idx}/${checked}`, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        // 요청 완료 시 처리할 콜백 함수
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+            }
+        };
+
+        xhr.send();
+    }
+</script>
 <body>
     <section>
         <article th:class="first">
@@ -13,16 +60,17 @@
         <h4 th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h4>
         <form name="addForm" th:action="@{/todolist}" method="post">
             <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
-            <button type="submit"><img th:src="@{/images/plus.svg}" alt="추가 버튼"></button><br>
+            <button type="submit"><img th:src="@{/images/plus-lg.svg}" alt="추가 버튼"></button><br>
         </form>
         </article>
         <article th:class="second" th:each="item : ${todolist}">
         <form name="deleteForm" th:action="@{/todolist/{id}(id=${item.idx})}" method="post">
-            <input type="checkbox" name="idx" th:value="${item.idx}">
-            <span class="content-text" th:text="${item.content}"></span>
-            <button type="submit"><img th:src="@{/images/trash.svg}" alt="삭제 아이콘"></button><br>
+            <input type="checkbox" name="idx" th:value="${item.idx}" th:checked="${item.checked}" onchange="selectCheckbox(this)">
+            <span class="content-text" th:text="${item.content}" ></span>
+            <button type="submit"><img th:src="@{/images/trash3.svg}" alt="삭제 아이콘"></button><br>
         </form>
         </article>
     </section>
+
 </body>
 </html>
