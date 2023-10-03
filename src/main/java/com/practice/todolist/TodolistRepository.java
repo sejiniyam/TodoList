@@ -8,9 +8,12 @@ import java.util.List;
 @Repository
 public interface TodolistRepository extends JpaRepository<Todolist, Integer> {
 
+    // 조회
     @Override
     List<Todolist> findAll();
 
+    // 삭제
     @Override
     void deleteById(Integer idx);
+
 }
