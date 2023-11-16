@@ -55,15 +55,19 @@
 </script>
 <body>
     <section>
-        <article th:class="first">
         <h3>ToDoList</h3>
-        <h4 th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h4>
-        <form name="addForm" th:action="@{/todolist}" method="post">
-            <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
-            <button type="submit"><img th:src="@{/images/plus-lg.svg}" alt="추가 버튼"></button><br>
-        </form>
+        <article th:class="date" style="display: flex; justify-content: center;" >
+                <img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘">
+                <h4 style="width: 250px; text-align: center;" id="date" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h4>
+                <img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘">
         </article>
-        <article th:class="second" th:each="item : ${todolist}">
+        <article th:class="add">
+            <form name="addForm" th:action="@{/todolist}" method="post">
+                <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
+                <button type="submit"><img th:src="@{/images/plus-lg.svg}" alt="추가 버튼"></button><br>
+            </form>
+        </article>
+        <article th:class="list" th:each="item : ${todolist}">
         <form name="deleteForm" th:action="@{/todolist/{id}(id=${item.idx})}" method="post">
             <input type="checkbox" name="idx" th:value="${item.idx}" th:checked="${item.checked}" onchange="selectCheckbox(this)">
             <span class="content-text" th:text="${item.content}" ></span>

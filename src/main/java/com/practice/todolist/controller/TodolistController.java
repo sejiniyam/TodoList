@@ -50,4 +50,11 @@ public class TodolistController {
         todolistService.updateTodoStatus(idx, checked);
         return "redirect:/todolist";
     }
+
+    // 날짜 이동 (날짜 페이징)
+    @PostMapping
+    public String datePaging(){
+        todolistService.datePaging();
+        return "redirect:/todolist";
+    }
 }
