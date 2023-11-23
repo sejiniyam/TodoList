@@ -5,6 +5,8 @@ import com.practice.todolist.entity.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +21,9 @@ public class TodolistService {
     }
 
     // 할 일 목록 조회
-    public List<Todolist> list() {
+    public List<Todolist> list(LocalDate nowDate) {
         List<Todolist> todolist = todolistRepository.findAll();
-        todolist.forEach(item -> System.out.println("불러올 내용 - " + item.toString()));
+        //todolist.forEach(item -> System.out.println("불러올 내용 - " + item.toString()));
         return todolist;
     }
 
@@ -45,5 +47,12 @@ public class TodolistService {
             todolist.setChecked(checked);
             todolistRepository.save(todolist);
         }
+    }
+
+    // 날짜 별 이동
+    public List<Todolist> dateMove(LocalDate date) {
+        List<Todolist> todolist = todolistRepository.findAll();
+        //todolist.forEach(item -> System.out.println("불러올 내용 - " + item.toString()));
+        return todolist;
     }
 }
