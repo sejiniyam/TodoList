@@ -55,11 +55,17 @@
 </script>
 <body>
     <section>
+
         <h3>ToDoList</h3>
         <article th:class="date" style="display: flex; justify-content: center;" >
+            <a th:href="@{/todolist/{date}(date=${date.minusDays(1)})}">
                 <img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘">
-                <h4 style="width: 250px; text-align: center;" id="date" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></h4>
+            </a>
+            <h4 style="width: 250px; text-align: center;"
+                th:name="date" id="date" th:text="${date}"></h4>
+            <a th:href="@{/todolist/{date}(date=${date.plusDays(1)})}">
                 <img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘">
+            </a>
         </article>
         <article th:class="add">
             <form name="addForm" th:action="@{/todolist}" method="post">

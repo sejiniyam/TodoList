@@ -6,13 +6,16 @@ body {
     padding: 0;
 }
 
-article {
-    margin-bottom: 10px;
+section {
+    background-color: #ffffff; /* Set a white background color for the section */
+    margin: auto;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px; /* Add rounded corners to the section */
 }
 
-#left,
-#right {
-    cursor: pointer;
+article {
+    margin-bottom: 10px;
 }
 
 h3 {
@@ -69,7 +72,7 @@ article input[type="text"] {
 }
 
 a {
-    text-decoration: none;
+    align-self: center;
     color: #007bff;
 }
 
