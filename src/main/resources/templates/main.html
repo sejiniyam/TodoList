@@ -4,9 +4,69 @@
     <meta charset="UTF-8">
     <title>TodoList</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}" />
     <link rel="icon" type="image/x-icon" href="../static/images/calendar.svg">
 </head>
+<body>
+    <section>
+        <h3>ToDoList</h3>
+        <div class="calendar">
+            <div class="header">
+            <article th:class="dayday" style="display: flex; justify-content: center;" >
+                <a onclick="prevMonth()"><img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘"></a>
+<!--                <a th:href="@{/todolist/{date}(date=${date.minusDays(1)})}">-->
+<!--                    <img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘">-->
+<!--                </a>-->
+                <div class="year-month"></div>
+    <!--            <h4 style="width: 150px; text-align: center;"-->
+    <!--                th:name="date" id="date" th:text="${date}"></h4>-->
+<!--                <a th:href="@{/todolist/{date}(date=${date.plusDays(1)})}">-->
+<!--                    <img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘">-->
+<!--                </a>-->
+                <a onclick="nextMonth()"><img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘"></a>
+                <a th:href="@{'/todolist/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}" id="todayLink" style="display: none;"></a>
+                <button th:class="goToday" type="button" onclick="todayTodoList()">today</button>
+            </article>
+            </div>
+            <div class='main'>
+                <div class="days">
+                    <div class="day">SUN</div>
+                    <div class="day">MON</div>
+                    <div class="day">TUE</div>
+                    <div class="day">WED</div>
+                    <div class="day">THU</div>
+                    <div class="day">FRI</div>
+                    <div class="day">SAT</div>
+                </div>
+                <div class="dates"></div>
+            </div>
+            <div class="todo" style="margin: 20px 0 20px;">
+                <article th:class="add">
+                    <form name="addForm" th:action="@{/todolist}" method="post">
+                        <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
+                        <button type="submit"><img th:src="@{/images/plus-lg.svg}" alt="추가 버튼"></button><br>
+                    </form>
+                </article>
+                <article th:class="list" th:each="item : ${todolist}">
+                    <form name="deleteForm" th:action="@{/todolist/{id}(id=${item.idx})}" method="post">
+                    <input type="checkbox" name="idx" th:value="${item.idx}" th:checked="${item.checked}" onchange="selectCheckbox(this)">
+                    <span class="content-text" th:text="${item.content}" ></span>
+                    <button type="submit"><img th:src="@{/images/trash3.svg}" alt="삭제 아이콘"></button><br>
+                </form>
+                </article>
+            </div>
+        </div>
+    </section>
+    <script th:src="@{/js/calendarIndex.js}"></script>
+</body>
 <script>
+    renderCalendar();
+
+    function todayTodoList() {
+        const todayLink = document.getElementById('todayLink').getAttribute('href');
+        location.href = todayLink;
+    }
+
     // 새로고침 시 모든 체크박스 상태 업데이트
     document.addEventListener("DOMContentLoaded", function() {
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -53,34 +113,4 @@
         xhr.send();
     }
 </script>
-<body>
-    <section>
-
-        <h3>ToDoList</h3>
-        <article th:class="date" style="display: flex; justify-content: center;" >
-            <a th:href="@{/todolist/{date}(date=${date.minusDays(1)})}">
-                <img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘">
-            </a>
-            <h4 style="width: 250px; text-align: center;"
-                th:name="date" id="date" th:text="${date}"></h4>
-            <a th:href="@{/todolist/{date}(date=${date.plusDays(1)})}">
-                <img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘">
-            </a>
-        </article>
-        <article th:class="add">
-            <form name="addForm" th:action="@{/todolist}" method="post">
-                <input type="text" name="content" placeholder="할 일을 추가해 주세요.">
-                <button type="submit"><img th:src="@{/images/plus-lg.svg}" alt="추가 버튼"></button><br>
-            </form>
-        </article>
-        <article th:class="list" th:each="item : ${todolist}">
-        <form name="deleteForm" th:action="@{/todolist/{id}(id=${item.idx})}" method="post">
-            <input type="checkbox" name="idx" th:value="${item.idx}" th:checked="${item.checked}" onchange="selectCheckbox(this)">
-            <span class="content-text" th:text="${item.content}" ></span>
-            <button type="submit"><img th:src="@{/images/trash3.svg}" alt="삭제 아이콘"></button><br>
-        </form>
-        </article>
-    </section>
-
-</body>
 </html>
