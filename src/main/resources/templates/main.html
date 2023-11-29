@@ -14,15 +14,7 @@
             <div class="header">
             <article th:class="dayday" style="display: flex; justify-content: center;" >
                 <a onclick="prevMonth()"><img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘"></a>
-<!--                <a th:href="@{/todolist/{date}(date=${date.minusDays(1)})}">-->
-<!--                    <img id="left" th:src="@{/images/left.svg}" alt="왼쪽 아이콘">-->
-<!--                </a>-->
                 <div class="year-month"></div>
-    <!--            <h4 style="width: 150px; text-align: center;"-->
-    <!--                th:name="date" id="date" th:text="${date}"></h4>-->
-<!--                <a th:href="@{/todolist/{date}(date=${date.plusDays(1)})}">-->
-<!--                    <img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘">-->
-<!--                </a>-->
                 <a onclick="nextMonth()"><img id="right" th:src="@{/images/right.svg}" alt="오른쪽 아이콘"></a>
                 <a th:href="@{'/todolist/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}" id="todayLink" style="display: none;"></a>
                 <button th:class="goToday" type="button" onclick="todayTodoList()">today</button>

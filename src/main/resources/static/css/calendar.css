@@ -36,9 +36,16 @@
     width: calc(83.5% / 7);
     padding: 5px;
     text-align: right;
+    cursor: pointer;
+    text-decoration: none; /* 밑줄 제거 */
     border-bottom: 1px solid #333333;
     border-left: 1px solid #333333;
 }
+.clicked {
+    text-decoration: underline double;
+}
+
+
 
 .day:nth-child(7n + 1),
 .date:nth-child(7n + 1) {
